@@ -71,3 +71,14 @@ const countryList = document.getElementsByClassName("countries")[0]
 
 countryList.appendChild(afgan)
 
+async function logJSONData(cat) {
+    const response = await fetch("data.json");
+    const jsonData = await response.json();
+    console.log(jsonData[cat].flag);
+    console.log(jsonData[cat].name);
+    console.log(jsonData[cat].population);
+    console.log(jsonData[cat].region);
+    console.log(jsonData[cat].capital);
+  }
+
+logJSONData(1)
