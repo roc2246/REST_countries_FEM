@@ -1,11 +1,12 @@
-let reigonFilter = "";
+let reigonFilter = null;
+let textFilter = null;
 
 const countryList = document.getElementsByClassName("countries")[0];
 const countries = document.getElementsByClassName("countries__country");
 const countryNames = document.getElementsByClassName(
   "countries__country--name"
 );
-const regionNames = document.getElementsByClassName("region-name");
+const reigonNames = document.getElementsByClassName("region-name");
 
 const searchBar = document.getElementsByClassName("search--text-input")[0];
 
@@ -107,10 +108,17 @@ function createCountryCard(countryData, no) {
   countryList.appendChild(country);
 }
 
-function searchFilter() {
-  const input = searchBar.value.toUpperCase();
+function searchFilter(text) {
+  const input = text.toUpperCase();
   for (let x = 0; x < countries.length; x++) {
-    if (countryNames[x].textContent.toUpperCase().indexOf(input) > -1) {
+    const countryName = countryNames[x].textContent.toUpperCase()
+
+    const textBool = countryName.includes(input);
+    const reigonBool = !countries[x].classList.contains("reigon-filter");
+
+    const completeBool = textBool && reigonBool
+
+    if (completeBool) {
       countries[x].style.display = "block";
     } else {
       countries[x].style.display = "none";
@@ -119,11 +127,9 @@ function searchFilter() {
 }
 
 function dropDownFilter() {
-  for (let x = 0; x < regionNames.length; x++) {
-    if (reigonFilter === regionNames[x].innerHTML) {
-      countries[x].style.display = "block";
-    } else if(reigonFilter !== regionNames[x].innerHTML){
-      countries[x].style.display = "none";
+  for (let x = 0; x < reigonNames.length; x++) {
+    if (reigonFilter !== reigonNames[x].innerHTML)  {
+      countries[x].classList.add("reigon-filter");
     }
   }
 }
@@ -131,7 +137,7 @@ function dropDownFilter() {
 async function logJSONData() {
   const response = await fetch("data.json");
   const jsonData = await response.json();
-  for (let x = 0; x < 10; x++) {
+  for (let x = 0; x < jsonData.length; x++) {
     createCountryCard(jsonData, x);
   }
 }
@@ -139,18 +145,27 @@ async function logJSONData() {
 logJSONData();
 
 searchBar.onkeyup = () => {
-  searchFilter();
+  textFilter = searchBar.value
+  searchFilter(textFilter);
 };
 
-for (let filter in dropDownOption) {
-  dropDownOption[filter].onclick = () => {
-    reigonFilter = dropDownOption[filter].innerHTML;
+for (let x = 0; x < dropDownOption.length - 1; x++) {
+  dropDownOption[x].onclick = () => {
+    for (let x = 0; x < countries.length; x++) {
+      if (countries[x].classList.contains("reigon-filter")) {
+        countries[x].classList.remove("reigon-filter");
+      }
+    }
+    reigonFilter = dropDownOption[x].innerHTML;
     dropDownFilter();
   };
 }
 
 clearDropDownOption.onclick = () => {
+  reigonFilter = null;
   for (let x = 0; x < countries.length; x++) {
-    countries[x].style.display = "block"
+    if (countries[x].classList.contains("reigon-filter")) {
+      countries[x].classList.remove("reigon-filter");
+    }
   }
-}
+};

@@ -1,3 +1,7 @@
+.reigon-filter{
+    display: none !important;
+}
+
 .search__dropdown--category{
     cursor: pointer;
 }
