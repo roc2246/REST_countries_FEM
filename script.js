@@ -1,3 +1,5 @@
+const countryList = document.getElementsByClassName("countries")[0];
+
 function newElement(ele, className) {
   const newElement = document.createElement(`${ele}`);
   newElement.className = `${className}`;
@@ -21,16 +23,16 @@ function createCountryFlag(countryName, imgSrc) {
   return flagCont;
 }
 
-function createCountryStatCont () {
-    const statCont = newElement("div", "countries__country--stats")
-    return statCont
+function createCountryStatCont() {
+  const statCont = newElement("div", "countries__country--stats");
+  return statCont;
 }
 
 function createCountryName(name) {
-    const countryName = newElement("h4", "countries__country--name");
-    countryName.innerHTML = `${name}`
-    return countryName;
-  }
+  const countryName = newElement("h4", "countries__country--name");
+  countryName.innerHTML = `${name}`;
+  return countryName;
+}
 
 function createCountryStats(cat, heading, text) {
   const statCont = newElement("span", `countries__country--${cat}`);
@@ -45,40 +47,50 @@ function createCountryStats(cat, heading, text) {
   return statCont;
 }
 
+function createCountryCard(countryData, no) {
+  const country = createCountryCont();
 
-const afgan = createCountryCont()
+  const countryFlag = createCountryFlag(
+    countryData[no].name,
+    countryData[no].flag
+  );
+  const statCont = createCountryStatCont();
 
-const afganFlag = createCountryFlag("afgan", "test")
-const statCont = createCountryStatCont()
+  const countryName = createCountryName(countryData[no].name);
+  const countryPop = createCountryStats(
+    "population",
+    "Population",
+    countryData[no].population
+  );
+  const countryReigon = createCountryStats(
+    "reigon",
+    "Reigon",
+    countryData[no].region
+  );
+  const countryCapital = createCountryStats(
+    "capital",
+    "Capital",
+    countryData[no].capital
+  );
 
-const countryName = createCountryName("afgan")
-const countryPop = createCountryStats("population", "population", "122222")
-const countryReigon = createCountryStats("reigon", "reigon", "Afgan")
-const countryCapital = createCountryStats("capital", "capital", "jabip")
+  country.appendChild(countryFlag);
 
-afgan.appendChild(afganFlag)
+  statCont.appendChild(countryName);
+  statCont.appendChild(countryPop);
+  statCont.appendChild(countryReigon);
+  statCont.appendChild(countryCapital);
 
-statCont.appendChild(countryName)
-statCont.appendChild(countryPop)
-statCont.appendChild(countryReigon)
-statCont.appendChild(countryCapital)
+  country.appendChild(statCont);
 
-afgan.appendChild(statCont)
+  countryList.appendChild(country);
+}
 
-console.log(afgan)
-
-const countryList = document.getElementsByClassName("countries")[0]
-
-countryList.appendChild(afgan)
-
-async function logJSONData(cat) {
-    const response = await fetch("data.json");
-    const jsonData = await response.json();
-    console.log(jsonData[cat].flag);
-    console.log(jsonData[cat].name);
-    console.log(jsonData[cat].population);
-    console.log(jsonData[cat].region);
-    console.log(jsonData[cat].capital);
+async function logJSONData() {
+  const response = await fetch("data.json");
+  const jsonData = await response.json();
+  for (let x = 0; x < 10; x++) {
+    createCountryCard(jsonData, x);
   }
+}
 
-logJSONData(1)
+logJSONData();
