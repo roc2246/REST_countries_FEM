@@ -1,14 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>REST Countries</title>
-</head>
-<body>
-    
-</body>
-<script src="script.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="top__heading">
+        <h4 class="top__heading--primary">Where in the world?</h4>
+      </div>
+      <div class="top__display-mode">
+        <div class="top__display-mode--img-container">
+          <img src="" alt="Dark Mode" class="top__display-mode--dark-img" />
+          <img src="" alt="Light Mode" class="top__display-mode--light-img" />
+        </div>
+        <button class="top__display-mode--btn"></button>
+      </div>
+    </header>
+
+    <section class="search">
+      <input type="text" name="" id="" class="search--text-input" />
+      <div class="search__dropdown">
+        <button class="search__dropdown--btn">Dropdown</button>
+        <div class="search__dropdown--content">
+          <span class="search__dropdown--category">Africa</span>
+          <span class="search__dropdown--category">America</span>
+          <span class="search__dropdown--category">Asia</span>
+          <span class="search__dropdown--category">Europe</span>
+          <span class="search__dropdown--category">Oceania</span>
+        </div>
+      </div>
+    </section>
+
+    <main class="countries">
+
+        <div class="countries__country">
+            <div class="countries__country--img-box">
+                <img src="" alt="" class="countries__country--img">
+            </div>
+
+            <div class="countries__country--stats">
+                <h2 class="countries__country--name"></h2>
+                <span class="countries__country--population">
+                    <h4 class="countries__country--heading"></h4>
+                    <p class="countries__country--text"></p>
+                </span>
+                <span class="countries__country--reigon">
+                    <h4 class="countries__country--heading"></h4>
+                    <p class="countries__country--text"></p>
+                </span>
+                <span class="countries__country--capital">
+                    <h4 class="countries__country--heading"></h4>
+                    <p class="countries__country--text"></p>
+                </span>
+            </div>
+            
+        </div>
+
+    </main>
+
+  </body>
+  <script src="script.js"></script>
 </html>
