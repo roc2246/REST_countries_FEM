@@ -1,10 +1,21 @@
+let reigonFilter = "";
+
 const countryList = document.getElementsByClassName("countries")[0];
 const countries = document.getElementsByClassName("countries__country");
 const countryNames = document.getElementsByClassName(
   "countries__country--name"
 );
+const regionNames = document.getElementsByClassName("region-name");
 
 const searchBar = document.getElementsByClassName("search--text-input")[0];
+
+const dropDownOption = document.getElementsByClassName(
+  "search__dropdown--category"
+);
+
+const clearDropDownOption = document.getElementsByClassName(
+  "search__dropdown--category"
+)[dropDownOption.length - 1];
 
 function newElement(ele, className) {
   const newElement = document.createElement(`${ele}`);
@@ -44,6 +55,11 @@ function createCountryStats(cat, heading, text) {
   const statCont = newElement("span", `countries__country--${cat}`);
   const headingCont = newElement("h4", "countries__country--heading");
   const textCont = newElement("p", "countries__country--text");
+
+  if (cat === "reigon") {
+    textCont.classList.add("region-name");
+  }
+
   headingCont.innerText = `${heading}`;
   textCont.innerText = `${text}`;
 
@@ -102,6 +118,16 @@ function searchFilter() {
   }
 }
 
+function dropDownFilter() {
+  for (let x = 0; x < regionNames.length; x++) {
+    if (reigonFilter === regionNames[x].innerHTML) {
+      countries[x].style.display = "block";
+    } else if(reigonFilter !== regionNames[x].innerHTML){
+      countries[x].style.display = "none";
+    }
+  }
+}
+
 async function logJSONData() {
   const response = await fetch("data.json");
   const jsonData = await response.json();
@@ -115,3 +141,16 @@ logJSONData();
 searchBar.onkeyup = () => {
   searchFilter();
 };
+
+for (let filter in dropDownOption) {
+  dropDownOption[filter].onclick = () => {
+    reigonFilter = dropDownOption[filter].innerHTML;
+    dropDownFilter();
+  };
+}
+
+clearDropDownOption.onclick = () => {
+  for (let x = 0; x < countries.length; x++) {
+    countries[x].style.display = "block"
+  }
+}
