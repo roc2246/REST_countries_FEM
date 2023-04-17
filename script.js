@@ -92,17 +92,14 @@ function createCountryCard(countryData, no) {
 }
 
 function searchFilter() {
-  searchBar.onkeyup = () => {
-    const input = searchBar.value;
-    console.log(input);
-    for (let x = 0; x < countries.length; x++) {
-      if (countryNames[x].textContent.indexOf(input) > -1) {
-        countries[x].style.display = "block";
-      } else {
-        countries[x].style.display = "none";
-      }
+  const input = searchBar.value.toUpperCase();
+  for (let x = 0; x < countries.length; x++) {
+    if (countryNames[x].textContent.toUpperCase().indexOf(input) > -1) {
+      countries[x].style.display = "block";
+    } else {
+      countries[x].style.display = "none";
     }
-  };
+  }
 }
 
 async function logJSONData() {
@@ -114,4 +111,7 @@ async function logJSONData() {
 }
 
 logJSONData();
-searchFilter();
+
+searchBar.onkeyup = () => {
+  searchFilter();
+};
