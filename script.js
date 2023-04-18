@@ -1,6 +1,8 @@
 let reigonFilter = null;
 let textFilter = null;
 
+const mainContainer = document.getElementsByTagName("main")[0];
+
 const countryList = document.getElementsByClassName("countries")[0];
 const countries = document.getElementsByClassName("countries__country");
 const countryNames = document.getElementsByClassName(
@@ -108,6 +110,55 @@ function createCountryCard(countryData, no) {
   countryList.appendChild(country);
 }
 
+function createCountryPageStat(statName, statCat){
+  const countryStat = newElement("span", "country__info--stat");
+  const statHeading = newElement("h5", "country__info--stat-heading");
+  const statInfo = newElement("p", "country__info--stat-info");
+  statHeading.innerHTML = `${statName}`;
+  statInfo.innerHTML = `${statCat}`;
+  countryStat.appendChild(statHeading);
+  countryStat.appendChild(statInfo);
+  return countryStat
+}
+
+function createCountryPage(countryData, no) {
+  const container = newElement("div", "country__info--flag-cont");
+
+  const flagCont = newElement("div", "country__info--flag-cont");
+  const flagImg = newElement("img", "country__info--flag");
+  flagImg.alt = `${countryData[no].name}`;
+  flagImg.src = `${countryData[no].flag}`;
+  flagCont.appendChild(flagImg);
+  container.appendChild(flagCont);
+
+  const countryName = newElement("h4", "country__info--name");
+  countryName.innerHTML = `${countryData[no].name}`;
+  container.appendChild(countryName);
+
+  const nativeName = createCountryPageStat("Native Name", countryData[no].nativeName)
+  container.appendChild(nativeName);
+  const population = createCountryPageStat("Population", countryData[no].population)
+  container.appendChild(population)
+  const region = createCountryPageStat("Region", countryData[no].reigon)
+  container.appendChild(region)
+  const subRegion = createCountryPageStat("Sub Region", countryData[no].subregion)
+  container.appendChild(subRegion)
+  const capital = createCountryPageStat("Capital", countryData[no].capital)
+  container.appendChild(capital)
+
+  const topLevelDomain = createCountryPageStat("Top Level Dominance", countryData[no].topLevelDomain[0])
+  container.appendChild(topLevelDomain)
+  const currencies = createCountryPageStat("Currencies", countryData[no].currencies[0].name)
+  container.appendChild(currencies)
+  const languages = createCountryPageStat("Languages", countryData[no].languages[0].name)
+  container.appendChild(languages)
+  const borders = createCountryPageStat("Border Countries", countryData[no].borders[0])
+  container.appendChild(borders)
+
+
+  mainContainer.appendChild(container)
+}
+
 function searchFilter(text) {
   const input = text.toUpperCase();
   for (let x = 0; x < countries.length; x++) {
@@ -141,10 +192,16 @@ async function logJSONData() {
     createCountryCard(jsonData, x);
     countries[x].onclick = () => {
       // change URL here
-      const path = jsonData[x].name.replace(/%20| /g, '-')
-      console.log(path.toLowerCase())
+      // const path = jsonData[x].name.replace(/%20| /g, '-')
+      // console.log(path.toLowerCase())
       // window.location.pathname = path.toLowerCase()
-    }
+
+      mainContainer.innerHTML = "";
+      mainContainer.classList.remove("countries");
+      mainContainer.classList.add("country");
+
+      createCountryPage(jsonData, x);
+    };
   }
 }
 
@@ -175,5 +232,3 @@ clearDropDownOption.onclick = () => {
     }
   }
 };
-
-
