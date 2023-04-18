@@ -122,6 +122,19 @@ function createCountryPageStat(statName, statCat){
 }
 
 function createCountryPage(countryData, no) {
+const backBtn = newElement("button", "btn btn--back")
+backBtn.innerText = "Back"
+backBtn.onclick = () => {
+  mainContainer.innerHTML = "";
+  mainContainer.classList.remove("country");
+  mainContainer.classList.add("countries");
+
+  logJSONData()
+
+}
+
+mainContainer.appendChild(backBtn)
+
   const container = newElement("div", "country__info--flag-cont");
 
   const flagCont = newElement("div", "country__info--flag-cont");
