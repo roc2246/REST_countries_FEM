@@ -5,3 +5,7 @@
 .search__dropdown--category{
     cursor: pointer;
 }
+
+.countries__country{
+    cursor: pointer;
+}

@@ -111,12 +111,12 @@ function createCountryCard(countryData, no) {
 function searchFilter(text) {
   const input = text.toUpperCase();
   for (let x = 0; x < countries.length; x++) {
-    const countryName = countryNames[x].textContent.toUpperCase()
+    const countryName = countryNames[x].textContent.toUpperCase();
 
     const textBool = countryName.includes(input);
     const reigonBool = !countries[x].classList.contains("reigon-filter");
 
-    const completeBool = textBool && reigonBool
+    const completeBool = textBool && reigonBool;
 
     if (completeBool) {
       countries[x].style.display = "block";
@@ -128,7 +128,7 @@ function searchFilter(text) {
 
 function dropDownFilter() {
   for (let x = 0; x < reigonNames.length; x++) {
-    if (reigonFilter !== reigonNames[x].innerHTML)  {
+    if (reigonFilter !== reigonNames[x].innerHTML) {
       countries[x].classList.add("reigon-filter");
     }
   }
@@ -139,13 +139,19 @@ async function logJSONData() {
   const jsonData = await response.json();
   for (let x = 0; x < jsonData.length; x++) {
     createCountryCard(jsonData, x);
+    countries[x].onclick = () => {
+      // change URL here
+      const path = jsonData[x].name.replace(/%20| /g, '-')
+      console.log(path.toLowerCase())
+      // window.location.pathname = path.toLowerCase()
+    }
   }
 }
 
 logJSONData();
 
 searchBar.onkeyup = () => {
-  textFilter = searchBar.value
+  textFilter = searchBar.value;
   searchFilter(textFilter);
 };
 
@@ -169,3 +175,5 @@ clearDropDownOption.onclick = () => {
     }
   }
 };
+
+
