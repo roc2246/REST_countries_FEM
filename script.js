@@ -110,30 +110,40 @@ function createCountryCard(countryData, no) {
   countryList.appendChild(country);
 }
 
-function createCountryPageStat(statName, statCat){
+function createCountryPageStat(statName, statCat) {
+  let ele
   const countryStat = newElement("span", "country__info--stat");
   const statHeading = newElement("h5", "country__info--stat-heading");
-  const statInfo = newElement("p", "country__info--stat-info");
+ let statInfo
+
+  if(statName === "Border Countries") {
+    ele = "span"
+    statInfo = newElement(ele, "country__info--stat-info");
+    statInfo.classList.add("borders")
+  } else {
+    ele= "p"
+    statInfo = newElement(ele, "country__info--stat-info");
+  }
+
   statHeading.innerHTML = `${statName}`;
   statInfo.innerHTML = `${statCat}`;
   countryStat.appendChild(statHeading);
   countryStat.appendChild(statInfo);
-  return countryStat
+  return countryStat;
 }
 
 function createCountryPage(countryData, no) {
-const backBtn = newElement("button", "btn btn--back")
-backBtn.innerText = "Back"
-backBtn.onclick = () => {
-  mainContainer.innerHTML = "";
-  mainContainer.classList.remove("country");
-  mainContainer.classList.add("countries");
+  const backBtn = newElement("button", "btn btn--back");
+  backBtn.innerText = "Back";
+  backBtn.onclick = () => {
+    mainContainer.innerHTML = "";
+    mainContainer.classList.remove("country");
+    mainContainer.classList.add("countries");
 
-  logJSONData()
+    logJSONData();
+  };
 
-}
-
-mainContainer.appendChild(backBtn)
+  mainContainer.appendChild(backBtn);
 
   const container = newElement("div", "country__info--flag-cont");
 
@@ -148,28 +158,62 @@ mainContainer.appendChild(backBtn)
   countryName.innerHTML = `${countryData[no].name}`;
   container.appendChild(countryName);
 
-  const nativeName = createCountryPageStat("Native Name", countryData[no].nativeName)
+  const nativeName = createCountryPageStat(
+    "Native Name",
+    countryData[no].nativeName
+  );
   container.appendChild(nativeName);
-  const population = createCountryPageStat("Population", countryData[no].population)
-  container.appendChild(population)
-  const region = createCountryPageStat("Region", countryData[no].reigon)
-  container.appendChild(region)
-  const subRegion = createCountryPageStat("Sub Region", countryData[no].subregion)
-  container.appendChild(subRegion)
-  const capital = createCountryPageStat("Capital", countryData[no].capital)
-  container.appendChild(capital)
+  const population = createCountryPageStat(
+    "Population",
+    countryData[no].population
+  );
+  container.appendChild(population);
+  const region = createCountryPageStat("Region", countryData[no].reigon);
+  container.appendChild(region);
+  const subRegion = createCountryPageStat(
+    "Sub Region",
+    countryData[no].subregion
+  );
+  container.appendChild(subRegion);
+  const capital = createCountryPageStat("Capital", countryData[no].capital);
+  container.appendChild(capital);
 
-  const topLevelDomain = createCountryPageStat("Top Level Dominance", countryData[no].topLevelDomain[0])
-  container.appendChild(topLevelDomain)
-  const currencies = createCountryPageStat("Currencies", countryData[no].currencies[0].name)
-  container.appendChild(currencies)
-  const languages = createCountryPageStat("Languages", countryData[no].languages[0].name)
-  container.appendChild(languages)
-  const borders = createCountryPageStat("Border Countries", countryData[no].borders[0])
-  container.appendChild(borders)
+  const topLevelDomain = createCountryPageStat(
+    "Top Level Dominance",
+    countryData[no].topLevelDomain[0]
+  );
+  container.appendChild(topLevelDomain);
+  const currencies = createCountryPageStat(
+    "Currencies",
+    countryData[no].currencies[0].name
+  );
+  container.appendChild(currencies);
+  const languages = createCountryPageStat(
+    "Languages",
+    countryData[no].languages[0].name
+  );
+  container.appendChild(languages);
 
 
-  mainContainer.appendChild(container)
+  let borderBtns = [];
+  const borders = createCountryPageStat(
+    "Border Countries",
+    "&nbsp;"
+  );
+ 
+  Object.keys(countryData[no].borders).forEach((border) => {
+    const borderBtn = newElement("button", "border-button");
+    borderBtn.innerHTML = countryData[no].borders[border];
+    borderBtns = [...borderBtns, borderBtn];
+  });
+  mainContainer.appendChild(container);
+
+  container.appendChild(borders);
+  const borderNames = document.getElementsByClassName("country__info--stat-info")[8]
+  Object.keys(borderBtns).forEach((border) => {
+    borderNames.appendChild(borderBtns[border])
+  });
+
 }
 
 function searchFilter(text) {
