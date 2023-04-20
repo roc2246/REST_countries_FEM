@@ -174,7 +174,6 @@ function generateBorders(borderInfo) {
     Object.keys(borderBtns).forEach((btn) => {
       const btnString = borderBtns[btn].outerHTML;
       container += `${btnString}`;
-  console.log(borderBtns)
     });
   } else {
     container = "None";
@@ -203,7 +202,11 @@ function createCountryPage(countryData, no) {
       let borderInfo = [];
       if (borderData !== undefined) {
         Object.keys(borderData).forEach((border) => {
-          borderInfo = [...borderInfo, borderData[border]];
+          for (let country in countryData) {
+            if (countryData[country].alpha3Code === borderData[border]) {
+              borderInfo = [...borderInfo, countryData[country].name];
+            }
+          }
         });
       } else {
         borderInfo = undefined;
