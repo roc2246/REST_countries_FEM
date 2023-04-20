@@ -1,6 +1,8 @@
 let reigonFilter = null;
 let textFilter = null;
 
+let prevStateNo = null;
+
 const mainContainer = document.getElementsByTagName("main")[0];
 
 const countryList = document.getElementsByClassName("countries")[0];
@@ -183,6 +185,11 @@ function generateBorders(borderInfo) {
 }
 
 function createCountryPage(countryData, no) {
+  mainContainer.innerHTML = "";
+  mainContainer.classList.remove("countries");
+  mainContainer.classList.add("country");
+
+  prevStateNo = no;
   createBackBtn();
 
   const container = newElement("div", "country__info--flag-cont");
@@ -240,23 +247,22 @@ function createCountryPage(countryData, no) {
 
   mainContainer.appendChild(container);
 
-
-   // Border BTN functionality ///////////////////////////////
-   const borderBtns = document.getElementsByClassName("border-button");
-   Object.keys(borderBtns).forEach((btn) => {
-     borderBtns[btn].onclick = () => {
-       for (let country in countryData) {
-         const buttonName = borderBtns[btn].innerHTML;
-         const countryName = countryData[country].name;
-         if (buttonName === countryName) {
-           mainContainer.innerHTML = "";
-           createCountryPage(countryData, country);
-         }
-       }
-     };
-   });
-   // ///////////////////////////////////////////////////////
-
+  // Border BTN functionality ///////////////////////////////
+  const borderBtns = document.getElementsByClassName("border-button");
+  Object.keys(borderBtns).forEach((btn) => {
+    borderBtns[btn].onclick = () => {
+      const buttonName = borderBtns[btn].innerHTML;
+      console.log(borderBtns[btn]);
+      for (let country in countryData) {
+        const countryName = countryData[country].name;
+        if (buttonName === countryName) {
+          mainContainer.innerHTML = "";
+          createCountryPage(countryData, country);
+        }
+      }
+    };
+  });
+  // ///////////////////////////////////////////////////////
 }
 
 function searchFilter(text) {
@@ -295,10 +301,6 @@ async function logJSONData() {
       // const path = jsonData[x].name.replace(/%20| /g, '-')
       // console.log(path.toLowerCase())
       // window.location.pathname = path.toLowerCase()
-
-      mainContainer.innerHTML = "";
-      mainContainer.classList.remove("countries");
-      mainContainer.classList.add("country");
 
       createCountryPage(jsonData, x);
     };
