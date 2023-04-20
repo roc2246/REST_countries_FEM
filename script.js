@@ -168,13 +168,13 @@ function generateBorderBtns(borders) {
 }
 
 function generateBorders(borderInfo) {
-  let container;
+  let container = "";
   const borderBtns = generateBorderBtns(borderInfo);
-  console.log(typeof borderBtns);
   if (borderInfo !== undefined) {
     Object.keys(borderBtns).forEach((btn) => {
       const btnString = borderBtns[btn].outerHTML;
       container += `${btnString}`;
+  console.log(borderBtns)
     });
   } else {
     container = "None";
