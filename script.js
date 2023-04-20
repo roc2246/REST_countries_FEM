@@ -203,8 +203,10 @@ function createCountryPage(countryData, no) {
       if (borderData !== undefined) {
         Object.keys(borderData).forEach((border) => {
           for (let country in countryData) {
-            if (countryData[country].alpha3Code === borderData[border]) {
-              borderInfo = [...borderInfo, countryData[country].name];
+            const alpha3 = countryData[country].alpha3Code;
+            const countryName = countryData[country].name;
+            if (alpha3 === borderData[border]) {
+              borderInfo = [...borderInfo, countryName];
             }
           }
         });
