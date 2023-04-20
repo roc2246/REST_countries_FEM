@@ -28,14 +28,9 @@ function newElement(ele, className) {
   return newElement;
 }
 
-function createCountryCont() {
-  const countryCont = newElement("div", "countries__country");
-  return countryCont;
-}
-
-function createCountryFlag(countryName, imgSrc) {
-  const flagCont = newElement("div", "countries__country--img-box");
-  const flagImg = newElement("img", "countries__country--img");
+function createCountryFlag(type, ele, countryName, imgSrc) {
+  const flagCont = newElement("div", `${type}__country--${ele}-box`);
+  const flagImg = newElement("img", `${type}__country--${ele}`);
 
   flagImg.alt = `${countryName}`;
   flagImg.src = `${imgSrc}`;
@@ -45,28 +40,25 @@ function createCountryFlag(countryName, imgSrc) {
   return flagCont;
 }
 
-function createCountryStatCont() {
-  const statCont = newElement("div", "countries__country--stats");
-  return statCont;
-}
-
-function createCountryName(name) {
-  const countryName = newElement("h4", "countries__country--name");
+function createCountryName(type, ele, name) {
+  const countryName = newElement("h4", `${type}__${ele}--name`);
   countryName.innerHTML = `${name}`;
   return countryName;
 }
 
-function createCountryStats(cat, heading, text) {
-  const statCont = newElement("span", `countries__country--${cat}`);
-  const headingCont = newElement("h4", "countries__country--heading");
-  const textCont = newElement("p", "countries__country--text");
-
-  if (cat === "reigon") {
-    textCont.classList.add("region-name");
-  }
+function createCountryStats(type, ele, heading, text) {
+  let cont;
+  heading === "Border Countries" ? (cont = "div") : (cont = "p");
+  const statCont = newElement("span", `${type}__${ele}--stat`);
+  const headingCont = newElement("h4", `${type}__${ele}--stat-heading`);
+  const textCont = newElement(cont, `${type}__${ele}--stat-text`);
 
   headingCont.innerText = `${heading}`;
-  textCont.innerText = `${text}`;
+  textCont.innerHTML = `${text}`;
+
+  if (heading === "Reigon") {
+    textCont.classList.add("region-name");
+  }
 
   statCont.appendChild(headingCont);
   statCont.appendChild(textCont);
@@ -75,55 +67,45 @@ function createCountryStats(cat, heading, text) {
 }
 
 function createCountryCard(countryData, no) {
-  const country = createCountryCont();
+  const country = newElement("div", "countries__country");
 
-  const countryFlag = createCountryFlag(
-    countryData[no].name,
-    countryData[no].flag
-  );
-  const statCont = createCountryStatCont();
+  const info = {
+    countryFlag: createCountryFlag(
+      "countries",
+      "country",
+      countryData[no].name,
+      countryData[no].flag
+    ),
+    countryName: createCountryName(
+      "countries",
+      "country",
+      countryData[no].name
+    ),
+    countryPop: createCountryStats(
+      "countries",
+      "county",
+      "Population",
+      countryData[no].population
+    ),
+    countryReigon: createCountryStats(
+      "countries",
+      "county",
+      "Reigon",
+      countryData[no].region
+    ),
+    countryCapital: createCountryStats(
+      "countries",
+      "county",
+      "Capital",
+      countryData[no].capital
+    ),
+  };
 
-  const countryName = createCountryName(countryData[no].name);
-  const countryPop = createCountryStats(
-    "population",
-    "Population",
-    countryData[no].population
-  );
-  const countryReigon = createCountryStats(
-    "reigon",
-    "Reigon",
-    countryData[no].region
-  );
-  const countryCapital = createCountryStats(
-    "capital",
-    "Capital",
-    countryData[no].capital
-  );
-
-  country.appendChild(countryFlag);
-
-  statCont.appendChild(countryName);
-  statCont.appendChild(countryPop);
-  statCont.appendChild(countryReigon);
-  statCont.appendChild(countryCapital);
-
-  country.appendChild(statCont);
+  Object.keys(info).forEach((card) => {
+    country.appendChild(info[card]);
+  });
 
   countryList.appendChild(country);
-}
-
-function createCountryPageStat(statName, statCat) {
-  let ele;
-  statName === "Border Countries" ? (ele = "div") : (ele = "p");
-  const countryStat = newElement("span", "country__info--stat");
-  const statHeading = newElement("h5", "country__info--stat-heading");
-  const statInfo = newElement(ele, "country__info--stat-info");
-
-  statHeading.innerHTML = `${statName}`;
-  statInfo.innerHTML = `${statCat}`;
-  countryStat.appendChild(statHeading);
-  countryStat.appendChild(statInfo);
-  return countryStat;
 }
 
 function createBackBtn(countryData) {
@@ -134,7 +116,6 @@ function createBackBtn(countryData) {
     mainContainer.classList.remove("country");
     mainContainer.classList.add("countries");
 
-    // Back Btn functionality
     if (prevStateNo.length !== 0) {
       createCountryPage(countryData, prevStateNo[prevStateNo.length - 1]);
       prevStateNo.pop();
@@ -144,21 +125,6 @@ function createBackBtn(countryData) {
   };
 
   mainContainer.appendChild(backBtn);
-}
-
-function createCountryFlagPage(flagName, flagSrc) {
-  const flagCont = newElement("div", "country__info--flag-cont");
-  const flagImg = newElement("img", "country__info--flag");
-  flagImg.alt = `${flagName}`;
-  flagImg.src = `${flagSrc}`;
-  flagCont.appendChild(flagImg);
-  return flagCont;
-}
-
-function createCountryPageName(name) {
-  const countryName = newElement("h4", "country__info--name");
-  countryName.innerHTML = `${name}`;
-  return countryName;
 }
 
 function generateBorderBtns(borders) {
@@ -181,12 +147,17 @@ function generateBorders(borderInfo) {
   if (borderInfo !== undefined) {
     Object.keys(borderBtns).forEach((btn) => {
       const btnString = borderBtns[btn].outerHTML;
-      container += `${btnString}`;
+      container += btnString;
     });
   } else {
     container = "None";
   }
-  const borderContainer = createCountryPageStat("Border Countries", container);
+  const borderContainer = createCountryStats(
+    "country",
+    "info",
+    "Border Countries",
+    container
+  );
   return borderContainer;
 }
 
@@ -200,11 +171,11 @@ function borderBtnFunctionality(countryData) {
       const buttonName = borderBtns[btn].innerHTML;
       for (let country in countryData) {
         const countryName = countryData[country].name;
-        
+
         if (countryName === displayedCountryName) {
           const countryNo = parseInt(country);
           prevStateNo = [...prevStateNo, countryNo];
-        } 
+        }
         if (buttonName === countryName) {
           mainContainer.innerHTML = "";
           createCountryPage(countryData, country);
@@ -221,7 +192,7 @@ function createCountryPage(countryData, no) {
 
   createBackBtn(countryData);
 
-  const container = newElement("div", "country__info--flag-cont");
+  const container = newElement("div", "country__info");
 
   const data = {
     name: countryData[no].name,
@@ -254,19 +225,46 @@ function createCountryPage(countryData, no) {
   };
 
   const pageContainers = {
-    flagCont: createCountryFlagPage(data.name, data.flag),
-    countryName: createCountryPageName(data.name),
-    nativeName: createCountryPageStat("Native Name", data.nativeName),
-    population: createCountryPageStat("Population", data.population),
-    region: createCountryPageStat("Region", data.reigon),
-    subRegion: createCountryPageStat("Sub Region", data.subregion),
-    capital: createCountryPageStat("Capital", data.capital),
-    topLevelDomain: createCountryPageStat(
+    flagCont: createCountryFlag("country", "info", data.name, data.flag),
+    countryName: createCountryName("country", "info", data.name),
+    nativeName: createCountryStats(
+      "country",
+      "info",
+      "Native Name",
+      data.nativeName
+    ),
+    population: createCountryStats(
+      "country",
+      "info",
+      "Population",
+      data.population
+    ),
+    region: createCountryStats("country", "info", "Region", data.reigon),
+    subRegion: createCountryStats(
+      "country",
+      "info",
+      "Sub Region",
+      data.subregion
+    ),
+    capital: createCountryStats("country", "info", "Capital", data.capital),
+    topLevelDomain: createCountryStats(
+      "country",
+      "info",
       "Top Level Dominance",
       data.topLevelDomain
     ),
-    currencies: createCountryPageStat("Currencies", data.currencies),
-    languages: createCountryPageStat("Languages", data.languages),
+    currencies: createCountryStats(
+      "country",
+      "info",
+      "Currencies",
+      data.currencies
+    ),
+    languages: createCountryStats(
+      "country",
+      "info",
+      "Languages",
+      data.languages
+    ),
     borders: generateBorders(data.borders()),
   };
 
