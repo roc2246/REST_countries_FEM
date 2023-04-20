@@ -239,6 +239,24 @@ function createCountryPage(countryData, no) {
   });
 
   mainContainer.appendChild(container);
+
+
+   // Border BTN functionality ///////////////////////////////
+   const borderBtns = document.getElementsByClassName("border-button");
+   Object.keys(borderBtns).forEach((btn) => {
+     borderBtns[btn].onclick = () => {
+       for (let country in countryData) {
+         const buttonName = borderBtns[btn].innerHTML;
+         const countryName = countryData[country].name;
+         if (buttonName === countryName) {
+           mainContainer.innerHTML = "";
+           createCountryPage(countryData, country);
+         }
+       }
+     };
+   });
+   // ///////////////////////////////////////////////////////
+
 }
 
 function searchFilter(text) {
