@@ -111,17 +111,17 @@ function createCountryCard(countryData, no) {
 }
 
 function createCountryPageStat(statName, statCat) {
-  let ele
+  let ele;
   const countryStat = newElement("span", "country__info--stat");
   const statHeading = newElement("h5", "country__info--stat-heading");
- let statInfo
+  let statInfo;
 
-  if(statName === "Border Countries") {
-    ele = "span"
+  if (statName === "Border Countries") {
+    ele = "span";
     statInfo = newElement(ele, "country__info--stat-info");
-    statInfo.classList.add("borders")
+    statInfo.classList.add("borders");
   } else {
-    ele= "p"
+    ele = "p";
     statInfo = newElement(ele, "country__info--stat-info");
   }
 
@@ -132,7 +132,7 @@ function createCountryPageStat(statName, statCat) {
   return countryStat;
 }
 
-function createBackBtn () {
+function createBackBtn() {
   const backBtn = newElement("button", "btn btn--back");
   backBtn.innerText = "Back";
   backBtn.onclick = () => {
@@ -147,7 +147,7 @@ function createBackBtn () {
 }
 
 function createCountryPage(countryData, no) {
-  createBackBtn()
+  createBackBtn();
 
   const container = newElement("div", "country__info--flag-cont");
 
@@ -198,26 +198,28 @@ function createCountryPage(countryData, no) {
   );
   container.appendChild(languages);
 
-
   let borderBtns = [];
-  const borders = createCountryPageStat(
-    "Border Countries",
-    "&nbsp;"
-  );
- 
-  Object.keys(countryData[no].borders).forEach((border) => {
-    const borderBtn = newElement("button", "border-button");
-    borderBtn.innerHTML = countryData[no].borders[border];
-    borderBtns = [...borderBtns, borderBtn];
-  });
+  let borders;
+  if (countryData[no].borders !== undefined) {
+    borders = createCountryPageStat("Border Countries", "&nbsp;");
+
+    Object.keys(countryData[no].borders).forEach((border) => {
+      const borderBtn = newElement("button", "border-button");
+      borderBtn.innerHTML = countryData[no].borders[border];
+      borderBtns = [...borderBtns, borderBtn];
+    });
+  } else {
+    borders = createCountryPageStat("Border Countries", "None");
+  }
   mainContainer.appendChild(container);
 
   container.appendChild(borders);
-  const borderNames = document.getElementsByClassName("country__info--stat-info")[8]
+  const borderNames = document.getElementsByClassName(
+    "country__info--stat-info"
+  )[8];
   Object.keys(borderBtns).forEach((border) => {
-    borderNames.appendChild(borderBtns[border])
+    borderNames.appendChild(borderBtns[border]);
   });
-
 }
 
 function searchFilter(text) {
