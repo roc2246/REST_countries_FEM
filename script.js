@@ -1,7 +1,7 @@
 let reigonFilter = null;
 let textFilter = null;
 
-let prevStateNo = null;
+let prevStateNo = [];
 
 const mainContainer = document.getElementsByTagName("main")[0];
 
@@ -126,7 +126,7 @@ function createCountryPageStat(statName, statCat) {
   return countryStat;
 }
 
-function createBackBtn() {
+function createBackBtn(countryData) {
   const backBtn = newElement("button", "btn btn--back");
   backBtn.innerText = "Back";
   backBtn.onclick = () => {
@@ -134,7 +134,13 @@ function createBackBtn() {
     mainContainer.classList.remove("country");
     mainContainer.classList.add("countries");
 
-    logJSONData();
+    // Back Btn functionality
+    if (prevStateNo.length !== 0) {
+      createCountryPage(countryData, prevStateNo[prevStateNo.length - 1]);
+      prevStateNo.pop();
+    } else {
+      logJSONData();
+    }
   };
 
   mainContainer.appendChild(backBtn);
@@ -184,13 +190,36 @@ function generateBorders(borderInfo) {
   return borderContainer;
 }
 
+function borderBtnFunctionality(countryData) {
+  const borderBtns = document.getElementsByClassName("border-button");
+  const displayedCountryName = document.getElementsByClassName(
+    "country__info--name"
+  )[0].innerHTML;
+  Object.keys(borderBtns).forEach((btn) => {
+    borderBtns[btn].onclick = () => {
+      const buttonName = borderBtns[btn].innerHTML;
+      for (let country in countryData) {
+        const countryName = countryData[country].name;
+        
+        if (countryName === displayedCountryName) {
+          const countryNo = parseInt(country);
+          prevStateNo = [...prevStateNo, countryNo];
+        } 
+        if (buttonName === countryName) {
+          mainContainer.innerHTML = "";
+          createCountryPage(countryData, country);
+        }
+      }
+    };
+  });
+}
+
 function createCountryPage(countryData, no) {
   mainContainer.innerHTML = "";
   mainContainer.classList.remove("countries");
   mainContainer.classList.add("country");
 
-  prevStateNo = no;
-  createBackBtn();
+  createBackBtn(countryData);
 
   const container = newElement("div", "country__info--flag-cont");
 
@@ -247,22 +276,7 @@ function createCountryPage(countryData, no) {
 
   mainContainer.appendChild(container);
 
-  // Border BTN functionality ///////////////////////////////
-  const borderBtns = document.getElementsByClassName("border-button");
-  Object.keys(borderBtns).forEach((btn) => {
-    borderBtns[btn].onclick = () => {
-      const buttonName = borderBtns[btn].innerHTML;
-      console.log(borderBtns[btn]);
-      for (let country in countryData) {
-        const countryName = countryData[country].name;
-        if (buttonName === countryName) {
-          mainContainer.innerHTML = "";
-          createCountryPage(countryData, country);
-        }
-      }
-    };
-  });
-  // ///////////////////////////////////////////////////////
+  borderBtnFunctionality(countryData);
 }
 
 function searchFilter(text) {
