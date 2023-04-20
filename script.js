@@ -132,7 +132,7 @@ function createCountryPageStat(statName, statCat) {
   return countryStat;
 }
 
-function createCountryPage(countryData, no) {
+function createBackBtn () {
   const backBtn = newElement("button", "btn btn--back");
   backBtn.innerText = "Back";
   backBtn.onclick = () => {
@@ -144,6 +144,10 @@ function createCountryPage(countryData, no) {
   };
 
   mainContainer.appendChild(backBtn);
+}
+
+function createCountryPage(countryData, no) {
+  createBackBtn()
 
   const container = newElement("div", "country__info--flag-cont");
 
