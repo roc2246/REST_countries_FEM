@@ -4,6 +4,8 @@ body {
 
 button {
   cursor: pointer;
+  width: 12rem;
+  height: 4rem;
 }
 
 .top{
@@ -72,6 +74,10 @@ button {
 .countries__country--flag {
   width: 100%;
   height: auto;
+}
+
+.country__info{
+
 }
 
 
