@@ -4,6 +4,7 @@ let textFilter = null;
 let prevStateNo = [];
 
 const mainContainer = document.getElementsByTagName("main")[0];
+const search = document.getElementsByClassName("search")[0]
 
 const countryList = document.getElementsByClassName("countries")[0];
 const countries = document.getElementsByClassName("countries__country");
@@ -120,6 +121,7 @@ function createBackBtn(countryData) {
       createCountryPage(countryData, prevStateNo[prevStateNo.length - 1]);
       prevStateNo.pop();
     } else {
+      search.style.display = "flex"
       logJSONData();
     }
   };
@@ -186,6 +188,7 @@ function borderBtnFunctionality(countryData) {
 }
 
 function createCountryPage(countryData, no) {
+  search.style.display = "none"
   mainContainer.innerHTML = "";
   mainContainer.classList.remove("countries");
   mainContainer.classList.add("country");
