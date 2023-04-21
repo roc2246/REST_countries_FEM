@@ -46,6 +46,14 @@ button {
     display: none;
 }
 
+.reigon-filter {
+  display: none !important;
+}
+
+.search__dropdown--category {
+  cursor: pointer;
+}
+
 .countries {
   display: flex;
   flex-direction: row;
@@ -54,6 +62,7 @@ button {
 }
 
 .countries__country {
+  cursor: pointer;
   margin: 2rem;
 
   width: 100%;
@@ -65,14 +74,6 @@ button {
   height: auto;
 }
 
-.reigon-filter {
-  display: none !important;
-}
 
-.search__dropdown--category {
-  cursor: pointer;
-}
 
-.countries__country {
-  cursor: pointer;
-}
+

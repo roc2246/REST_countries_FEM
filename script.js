@@ -30,8 +30,8 @@ function newElement(ele, className) {
 }
 
 function createCountryFlag(type, ele, countryName, imgSrc) {
-  const flagCont = newElement("div", `${type}__country--${ele}-box`);
-  const flagImg = newElement("img", `${type}__country--${ele}`);
+  const flagCont = newElement("div", `${type}__${ele}--flag-box`);
+  const flagImg = newElement("img", `${type}__${ele}--flag`);
 
   flagImg.alt = `${countryName}`;
   flagImg.src = `${imgSrc}`;
@@ -73,7 +73,7 @@ function createCountryCard(countryData, no) {
   const info = {
     countryFlag: createCountryFlag(
       "countries",
-      "flag",
+      "country",
       countryData[no].name,
       countryData[no].flag
     ),
