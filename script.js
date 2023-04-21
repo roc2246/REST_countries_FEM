@@ -72,7 +72,7 @@ function createCountryCard(countryData, no) {
   const info = {
     countryFlag: createCountryFlag(
       "countries",
-      "country",
+      "flag",
       countryData[no].name,
       countryData[no].flag
     ),
