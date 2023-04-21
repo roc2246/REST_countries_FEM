@@ -54,8 +54,8 @@ function createCountryStats(type, ele, heading, text) {
   const headingCont = newElement("h4", `${type}__${ele}--stat-heading`);
   const textCont = newElement(cont, `${type}__${ele}--stat-text`);
 
-  headingCont.innerText = `${heading}`;
-  textCont.innerHTML = `${text}`;
+  headingCont.innerText = `${heading}:`;
+  textCont.innerHTML = ` ${text}`;
 
   if (heading === "Reigon") {
     textCont.classList.add("region-name");
@@ -84,19 +84,19 @@ function createCountryCard(countryData, no) {
     ),
     countryPop: createCountryStats(
       "countries",
-      "county",
+      "country",
       "Population",
       countryData[no].population
     ),
     countryReigon: createCountryStats(
       "countries",
-      "county",
+      "country",
       "Reigon",
       countryData[no].region
     ),
     countryCapital: createCountryStats(
       "countries",
-      "county",
+      "country",
       "Capital",
       countryData[no].capital
     ),
