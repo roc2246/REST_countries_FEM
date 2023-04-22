@@ -49,7 +49,6 @@ function createCountryName(type, ele, name) {
 
 function createCountryStats(type, ele, heading, text) {
   let cont;
-  console.log(text)
 
   heading === "Border Countries" && text !== "None"? (cont = "div") : (cont = "p");
   const statCont = newElement("span", `${type}__${ele}--stat`);

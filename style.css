@@ -1,5 +1,9 @@
 body {
   margin: 0;
+  max-width: 90rem;
+width: 100%;
+margin-left: auto;
+margin-right: auto;
 }
 
 button {
@@ -117,9 +121,6 @@ h4 {
 }
 
 @media (min-width: 376px) {
-  .country__info {
-    /* grid-template-columns: repeat(3, 1fr); */
-  }
   .country__info--flag-box {
     grid-column: 1/2;
     grid-row: 1/10;
