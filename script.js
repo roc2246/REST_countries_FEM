@@ -42,20 +42,23 @@ function createCountryFlag(type, ele, countryName, imgSrc) {
 }
 
 function createCountryName(type, ele, name) {
-  const countryName = newElement("h4", `${type}__${ele}--name`);
+  const countryName = newElement("h2", `${type}__${ele}--name`);
   countryName.innerHTML = `${name}`;
   return countryName;
 }
 
 function createCountryStats(type, ele, heading, text) {
   let cont;
-  heading === "Border Countries" ? (cont = "div") : (cont = "p");
+  console.log(text)
+
+  heading === "Border Countries" && text !== "None"? (cont = "div") : (cont = "p");
   const statCont = newElement("span", `${type}__${ele}--stat`);
   const headingCont = newElement("h4", `${type}__${ele}--stat-heading`);
   const textCont = newElement(cont, `${type}__${ele}--stat-text`);
 
   headingCont.innerText = `${heading}:`;
   textCont.innerHTML = ` ${text}`;
+
 
   if (heading === "Reigon") {
     textCont.classList.add("region-name");
@@ -160,6 +163,7 @@ function generateBorders(borderInfo) {
     "Border Countries",
     container
   );
+  borderContainer.classList.add("borders")
   return borderContainer;
 }
 
@@ -196,6 +200,8 @@ function createCountryPage(countryData, no) {
   createBackBtn(countryData);
 
   const container = newElement("div", "country__info");
+  const group1 = newElement("div", "group-1")
+  const group2 = newElement("div", "group-2")
 
   const data = {
     name: countryData[no].name,
@@ -271,9 +277,22 @@ function createCountryPage(countryData, no) {
     borders: generateBorders(data.borders()),
   };
 
-  Object.keys(pageContainers).forEach((cont) => {
-    container.appendChild(pageContainers[cont]);
-  });
+  container.append(pageContainers.flagCont)
+  container.append(pageContainers.countryName)
+
+  group1.append(pageContainers.nativeName)
+  group1.append(pageContainers.population)
+  group1.append(pageContainers.region)
+  group1.append(pageContainers.subRegion)
+  group1.append(pageContainers.capital)
+  container.append(group1)
+
+  group2.append(pageContainers.topLevelDomain)
+  group2.append(pageContainers.currencies)
+  group2.append(pageContainers.languages)
+  container.append(group2)
+
+  container.append(pageContainers.borders)
 
   mainContainer.appendChild(container);
 
