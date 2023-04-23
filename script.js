@@ -425,7 +425,7 @@ for (let x = 0; x < dropDownOption.length - 1; x++) {
         countries[x].classList.remove("reigon-filter");
       }
     }
-    reigonFilter = dropDownOption[x].innerHTML;
+    reigonFilter = ` ${dropDownOption[x].innerHTML}`;
     dropDownFilter();
   };
 }
