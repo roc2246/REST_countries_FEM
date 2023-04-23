@@ -1,16 +1,24 @@
 let reigonFilter = null;
 let textFilter = null;
 
-let displayMode = "Light"
+let displayMode = "Light";
 
 let prevStateNo = [];
 
-const displayModeContainer = document.getElementsByClassName("top__display-mode")[0]
-const lightImg = document.getElementsByClassName("top__display-mode--light-img")[0]
-const darkImg = document.getElementsByClassName("top__display-mode--dark-img")[0]
+const body = document.getElementsByTagName("body")[0];
+const buttons = document.getElementsByTagName("button");
 
-const topContainer = document.getElementsByClassName("top")[0]
-const search = document.getElementsByClassName("search")[0]
+const displayModeContainer =
+  document.getElementsByClassName("top__display-mode")[0];
+const lightImg = document.getElementsByClassName(
+  "top__display-mode--light-img"
+)[0];
+const darkImg = document.getElementsByClassName(
+  "top__display-mode--dark-img"
+)[0];
+
+const topContainer = document.getElementsByClassName("top")[0];
+const search = document.getElementsByClassName("search")[0];
 const mainContainer = document.getElementsByTagName("main")[0];
 
 const countryList = document.getElementsByClassName("countries")[0];
@@ -30,24 +38,35 @@ const clearDropDownOption = document.getElementsByClassName(
   "search__dropdown--category"
 )[dropDownOption.length - 1];
 
-function changedisplayModeContainer () {
-  const topColor = topContainer.style.backgroundColor
-  const searchColor = search.style.backgroundColor
-  const mainColor = mainContainer.style.backgroundColor
-
-  const allEmpty = topColor === "" && searchColor === "" && mainColor === ""
-
-  if(allEmpty || mainColor === "white"){
-    mainContainer.style.backgroundColor = "black"
-    lightImg.style.display = "none"
-    darkImg.style.display = "inline"
-  } else {
-    mainContainer.style.backgroundColor = "white"
-    lightImg.style.display = "inline"
-    darkImg.style.display = "none"
-  }
+function changeBtnTextColor(color) {
+  Object.keys(buttons).forEach((button) => {
+    buttons[button].style.color = `${color}`;
+  });
 }
 
+function changedisplayModeContainer() {
+  const topColor = topContainer.style.backgroundColor;
+  const searchColor = search.style.backgroundColor;
+  const mainColor = mainContainer.style.backgroundColor;
+
+  const allEmpty = topColor === "" && searchColor === "" && mainColor === "";
+
+  if (allEmpty || mainColor === "white") {
+    mainContainer.style.backgroundColor = "black";
+    body.style.color = "white";
+    changeBtnTextColor("white");
+
+    lightImg.style.display = "none";
+    darkImg.style.display = "inline";
+  } else {
+    mainContainer.style.backgroundColor = "white";
+    body.style.color = "black";
+    changeBtnTextColor("black");
+
+    lightImg.style.display = "inline";
+    darkImg.style.display = "none";
+  }
+}
 
 function newElement(ele, className) {
   const newElement = document.createElement(`${ele}`);
@@ -76,14 +95,15 @@ function createCountryName(type, ele, name) {
 function createCountryStats(type, ele, heading, text) {
   let cont;
 
-  heading === "Border Countries" && text !== "None"? (cont = "div") : (cont = "p");
+  heading === "Border Countries" && text !== "None"
+    ? (cont = "div")
+    : (cont = "p");
   const statCont = newElement("span", `${type}__${ele}--stat`);
   const headingCont = newElement("h4", `${type}__${ele}--stat-heading`);
   const textCont = newElement(cont, `${type}__${ele}--stat-text`);
 
   headingCont.innerText = `${heading}:`;
   textCont.innerHTML = ` ${text}`;
-
 
   if (heading === "Reigon") {
     textCont.classList.add("region-name");
@@ -149,7 +169,7 @@ function createBackBtn(countryData) {
       createCountryPage(countryData, prevStateNo[prevStateNo.length - 1]);
       prevStateNo.pop();
     } else {
-      search.style.display = "flex"
+      search.style.display = "flex";
       logJSONData();
     }
   };
@@ -188,7 +208,7 @@ function generateBorders(borderInfo) {
     "Border Countries",
     container
   );
-  borderContainer.classList.add("borders")
+  borderContainer.classList.add("borders");
   return borderContainer;
 }
 
@@ -217,7 +237,7 @@ function borderBtnFunctionality(countryData) {
 }
 
 function createCountryPage(countryData, no) {
-  search.style.display = "none"
+  search.style.display = "none";
   mainContainer.innerHTML = "";
   mainContainer.classList.remove("countries");
   mainContainer.classList.add("country");
@@ -225,8 +245,8 @@ function createCountryPage(countryData, no) {
   createBackBtn(countryData);
 
   const container = newElement("div", "country__info");
-  const group1 = newElement("div", "group-1")
-  const group2 = newElement("div", "group-2")
+  const group1 = newElement("div", "group-1");
+  const group2 = newElement("div", "group-2");
 
   const data = {
     name: countryData[no].name,
@@ -302,22 +322,22 @@ function createCountryPage(countryData, no) {
     borders: generateBorders(data.borders()),
   };
 
-  container.append(pageContainers.flagCont)
-  container.append(pageContainers.countryName)
+  container.append(pageContainers.flagCont);
+  container.append(pageContainers.countryName);
 
-  group1.append(pageContainers.nativeName)
-  group1.append(pageContainers.population)
-  group1.append(pageContainers.region)
-  group1.append(pageContainers.subRegion)
-  group1.append(pageContainers.capital)
-  container.append(group1)
+  group1.append(pageContainers.nativeName);
+  group1.append(pageContainers.population);
+  group1.append(pageContainers.region);
+  group1.append(pageContainers.subRegion);
+  group1.append(pageContainers.capital);
+  container.append(group1);
 
-  group2.append(pageContainers.topLevelDomain)
-  group2.append(pageContainers.currencies)
-  group2.append(pageContainers.languages)
-  container.append(group2)
+  group2.append(pageContainers.topLevelDomain);
+  group2.append(pageContainers.currencies);
+  group2.append(pageContainers.languages);
+  container.append(group2);
 
-  container.append(pageContainers.borders)
+  container.append(pageContainers.borders);
 
   mainContainer.appendChild(container);
 
@@ -369,8 +389,8 @@ async function logJSONData() {
 logJSONData();
 
 displayModeContainer.onclick = () => {
-  changedisplayModeContainer()
-}
+  changedisplayModeContainer();
+};
 
 searchBar.onkeyup = () => {
   textFilter = searchBar.value;

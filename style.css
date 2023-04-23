@@ -1,9 +1,8 @@
 body {
   margin: 0;
   max-width: 90rem;
-width: 100%;
-margin-left: auto;
-margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 button {
@@ -213,11 +212,9 @@ h4 {
 
 .borders > p.country__info--stat-text {
   margin-top: 1.5rem;
-  margin-left: -.5rem;
+  margin-left: -0.5rem;
 }
 
 .border-button {
   margin-top: 1rem;
 }
-
-
