@@ -10,11 +10,11 @@ const buttons = document.getElementsByTagName("button");
 
 const displayModeContainer =
   document.getElementsByClassName("top__display-mode")[0];
-const lightImg = document.getElementsByClassName(
-  "top__display-mode--light-img"
+const lightMode = document.getElementsByClassName(
+  "light-mode"
 )[0];
-const darkImg = document.getElementsByClassName(
-  "top__display-mode--dark-img"
+const darkMode = document.getElementsByClassName(
+  "dark-mode"
 )[0];
 
 const topContainer = document.getElementsByClassName("top")[0];
@@ -65,15 +65,15 @@ function changedisplayModeContainer() {
     body.style.color = "white";
     changeBtnTextColor("white");
 
-    lightImg.style.display = "none";
-    darkImg.style.display = "inline";
+    lightMode.style.display = "flex";
+    darkMode.style.display = "none";
   } else {
     mainContainer.style.backgroundColor = "white";
     body.style.color = "black";
     changeBtnTextColor("black");
 
-    lightImg.style.display = "inline";
-    darkImg.style.display = "none";
+    lightMode.style.display = "none";
+    darkMode.style.display = "flex";
   }
 }
 

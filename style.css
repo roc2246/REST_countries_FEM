@@ -1,3 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap');
+
+:root{
+  --dark-blue: "hsl(209, 23%, 22%)";
+  --very-dark-blue: "hsl(207, 26%, 17%)";
+  --dark-grey: "hsl(0, 0%, 52%)";
+  --very-light-grey: "hsl(0, 0%, 98%)";
+  --white: "hsl(0, 0%, 100%)";
+
+  --light: 300;
+  --bold: 600;
+  --bolder: 800;
+}
+
+html{
+  font-size: 16px;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
 body {
   margin: 0;
   max-width: 90rem;
@@ -28,9 +47,31 @@ h4 {
   margin-bottom: 1rem;
 }
 
-.top__display-mode--dark-img {
+.dark-mode, .light-mode{
+  display: flex;
+  flex-direction: row;
+  gap: .5rem;
+}
+
+.dark-mode__img-cont, .light-mode__img-cont{
+  width: 1rem;
+  height: auto;
+
+  margin-top: .1rem;
+}
+
+.top__display-mode--dark-text,
+.top__display-mode--light-text
+{
+  margin: 0;
+}
+
+.light-mode {
   display: none;
 }
+
+
+
 
 .search {
   display: flex;
@@ -89,6 +130,8 @@ h4 {
 
   width: 100%;
   max-width: 22rem;
+
+  font-size: 14px;
 }
 
 .countries__country--flag {

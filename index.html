@@ -14,15 +14,38 @@
       </div>
       <div class="top__display-mode">
         <div class="top__display-mode--img-container">
-          <img src="" alt="Dark Mode" class="top__display-mode--dark-img" />
-          <img src="" alt="Light Mode" class="top__display-mode--light-img" />
+          <div class="dark-mode">
+            <div class="dark-mode__img-cont">
+              <img
+                src="assets/moon-outline.svg"
+                alt="Dark Mode"
+                class="top__display-mode--dark-img"
+              />
+            </div>
+            <p class="top__display-mode--dark-text">Dark Mode</p>
+          </div>
+          <div class="light-mode">
+            <div class="light-mode__img-cont">
+              <img
+                src="assets/moon.svg"
+                alt="Light Mode"
+                class="top__display-mode--light-img"
+              />
+            </div>
+            <p class="top__display-mode--light-text">light Mode</p>
+          </div>
         </div>
       </div>
     </header>
 
-    
     <section class="search">
-      <input type="text" name="" id="" placeholder="Search for a country..." class="search--text-input" />
+      <input
+        type="text"
+        name=""
+        id=""
+        placeholder="Search for a country..."
+        class="search--text-input"
+      />
       <div class="search__dropdown">
         <button class="search__dropdown--btn">Filter by Reigon</button>
         <div class="search__dropdown--content">
@@ -35,12 +58,8 @@
         </div>
       </div>
     </section>
-    
-    <main class="countries">
-      
 
-    </main>
-
+    <main class="countries"></main>
   </body>
   <script src="script.js"></script>
 </html>
