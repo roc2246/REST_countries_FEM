@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap');
 
 :root{
-  --dark-blue: "hsl(209, 23%, 22%)";
-  --very-dark-blue: "hsl(207, 26%, 17%)";
-  --dark-grey: "hsl(0, 0%, 52%)";
-  --very-light-grey: "hsl(0, 0%, 98%)";
-  --white: "hsl(0, 0%, 100%)";
+  --dark-blue: hsl(209, 23%, 22%);
+  --very-dark-blue: hsl(207, 26%, 17%);
+  --dark-grey: hsl(0, 0%, 52%);
+  --very-light-grey: hsl(0, 0%, 98%);
+  --white: hsl(0, 0%, 100%);
 
   --light: 300;
   --bold: 600;
@@ -70,9 +70,6 @@ h4 {
   display: none;
 }
 
-
-
-
 .search {
   display: flex;
   flex-direction: row;
@@ -119,32 +116,45 @@ h4 {
 .countries {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
-  padding: 1rem;
+  gap: 4rem;
+  padding: 2rem 0 2rem 0;
 }
 
 .countries__country {
   z-index: 0;
   cursor: pointer;
-  margin: 2rem;
+  padding-bottom: 1rem;
+  /* margin-left: auto;
+  margin-right: auto; */
 
-  width: 100%;
-  max-width: 22rem;
+  width: 16rem;
+  height: auto;
 
-  font-size: 14px;
+  border: solid;
+  border-radius: .25rem;
 }
 
+.countries__country--name{
+  margin-left: 1rem;
+}
+
+.countries__country--flag-box {
+  height: 10rem;
+
+}
 .countries__country--flag {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .countries__country--stat {
   display: flex;
   flex-direction: row;
 
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0 .5rem 1rem;
 }
 
 .countries__country--stat-heading {
@@ -157,6 +167,7 @@ h4 {
 
 .country {
   padding: 1.5rem;
+  font-size: 14px;
 }
 
 .country__info {
