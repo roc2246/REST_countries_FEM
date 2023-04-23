@@ -30,6 +30,15 @@ const reigonNames = document.getElementsByClassName("region-name");
 
 const searchBar = document.getElementsByClassName("search--text-input")[0];
 
+
+const dropDown =  document.getElementsByClassName(
+  "search__dropdown"
+)[0]
+
+const dropDownBtn =  document.getElementsByClassName(
+  "search__dropdown--btn"
+)[0]
+
 const dropDownOption = document.getElementsByClassName(
   "search__dropdown--category"
 );
@@ -396,6 +405,18 @@ searchBar.onkeyup = () => {
   textFilter = searchBar.value;
   searchFilter(textFilter);
 };
+
+dropDownBtn.onmouseover = () => {
+  Object.keys(dropDownOption).forEach((option) => {
+    dropDownOption[option].style.display = "inline"
+  })
+}
+
+dropDown.onmouseleave = () => {
+  Object.keys(dropDownOption).forEach((option) => {
+    dropDownOption[option].style.display = "none"
+  })
+}
 
 for (let x = 0; x < dropDownOption.length - 1; x++) {
   dropDownOption[x].onclick = () => {

@@ -43,6 +43,7 @@ h4 {
 
 .search--text-input {
   width: 100%;
+  height: 2rem;
   max-width: 25rem;
   margin-top: 1rem;
 }
@@ -51,8 +52,17 @@ h4 {
   margin-top: 1rem;
 }
 
+.search__dropdown--content{
+  display: flex;
+  flex-direction: column;
+}
+
 .search__dropdown--category {
   display: none;
+}
+
+.search__dropdown--category:hover{
+  background-color: red;
 }
 
 .reigon-filter {
