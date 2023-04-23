@@ -191,6 +191,7 @@ h4 {
 
 .country__info {
   display: grid;
+  justify-content: center;
   column-gap: min(2%, 8rem);
 
   margin-top: 4rem;
@@ -206,6 +207,9 @@ h4 {
 }
 
 @media (min-width: 376px) {
+  .btn--back{
+    margin-left: 5.5vw;
+  }
   .country__info--flag-box {
     grid-column: 1/5;
   }
