@@ -1,8 +1,6 @@
 let reigonFilter = null;
 let textFilter = null;
 
-let displayMode = "Light";
-
 let prevStateNo = [];
 
 const body = document.getElementsByTagName("body")[0];
