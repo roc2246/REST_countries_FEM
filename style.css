@@ -24,11 +24,12 @@ h4 {
 }
 
 .top__display-mode {
+  cursor: pointer;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-.top__display-mode--light-img {
+.top__display-mode--dark-img {
   display: none;
 }
 
@@ -119,7 +120,6 @@ h4 {
   margin-top: 2rem;
 }
 
-/* 375 */
 @media (min-width: 376px) {
   .country__info--flag-box {
     grid-column: 1/5;

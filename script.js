@@ -1,10 +1,17 @@
 let reigonFilter = null;
 let textFilter = null;
 
+let displayMode = "Light"
+
 let prevStateNo = [];
 
-const mainContainer = document.getElementsByTagName("main")[0];
+const displayModeContainer = document.getElementsByClassName("top__display-mode")[0]
+const lightImg = document.getElementsByClassName("top__display-mode--light-img")[0]
+const darkImg = document.getElementsByClassName("top__display-mode--dark-img")[0]
+
+const topContainer = document.getElementsByClassName("top")[0]
 const search = document.getElementsByClassName("search")[0]
+const mainContainer = document.getElementsByTagName("main")[0];
 
 const countryList = document.getElementsByClassName("countries")[0];
 const countries = document.getElementsByClassName("countries__country");
@@ -22,6 +29,25 @@ const dropDownOption = document.getElementsByClassName(
 const clearDropDownOption = document.getElementsByClassName(
   "search__dropdown--category"
 )[dropDownOption.length - 1];
+
+function changedisplayModeContainer () {
+  const topColor = topContainer.style.backgroundColor
+  const searchColor = search.style.backgroundColor
+  const mainColor = mainContainer.style.backgroundColor
+
+  const allEmpty = topColor === "" && searchColor === "" && mainColor === ""
+
+  if(allEmpty || mainColor === "white"){
+    mainContainer.style.backgroundColor = "black"
+    lightImg.style.display = "none"
+    darkImg.style.display = "inline"
+  } else {
+    mainContainer.style.backgroundColor = "white"
+    lightImg.style.display = "inline"
+    darkImg.style.display = "none"
+  }
+}
+
 
 function newElement(ele, className) {
   const newElement = document.createElement(`${ele}`);
@@ -341,6 +367,10 @@ async function logJSONData() {
 }
 
 logJSONData();
+
+displayModeContainer.onclick = () => {
+  changedisplayModeContainer()
+}
 
 searchBar.onkeyup = () => {
   textFilter = searchBar.value;
