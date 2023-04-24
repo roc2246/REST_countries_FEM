@@ -50,21 +50,21 @@ function changeBtnTextColor(color) {
   });
 }
 
-function changeDisplay(dark, veryDark, textColor) {
-  body.style.backgroundColor = veryDark;
-  mainContainer.style.backgroundColor = veryDark;
+function changeDisplay(input, container, textColor) {
+  body.style.backgroundColor = container;
+  mainContainer.style.backgroundColor = container;
 
-  topContainer.style.backgroundColor = dark;
+  topContainer.style.backgroundColor = input;
 
-  search.style.backgroundColor = veryDark;
-  searchBar.style.backgroundColor = dark;
+  search.style.backgroundColor = container;
+  searchBar.style.backgroundColor = input;
 
   Object.keys(buttons).forEach((btn) => {
-    buttons[btn].style.backgroundColor = dark;
+    buttons[btn].style.backgroundColor = input;
   });
 
   Object.keys(countries).forEach((country) => {
-    countries[country].style.backgroundColor = dark;
+    countries[country].style.backgroundColor = input;
   });
   body.style.color = textColor;
   changeBtnTextColor(textColor);
@@ -77,7 +77,7 @@ function changedisplayModeContainer() {
 
   const allEmpty = topColor === "" && searchColor === "" && mainColor === "";
 
-  if (allEmpty || mainColor === toggleColors.darkGrey) {
+  if (allEmpty || mainColor === toggleColors.veryLightGrey) {
     toggleMode = "dark"
     changeDisplay(
       toggleColors.darkBlue,
@@ -89,8 +89,8 @@ function changedisplayModeContainer() {
   } else {
     toggleMode = "light"
     changeDisplay(
+      toggleColors.white,
       toggleColors.veryLightGrey,
-      toggleColors.darkGrey,
       "black"
     );
 

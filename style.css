@@ -140,6 +140,8 @@ h4 {
   flex-wrap: wrap;
   gap: 4rem;
   padding: 2rem 0 2rem 0;
+
+  background-color: var(--very-light-grey);
 }
 
 .countries__country {
