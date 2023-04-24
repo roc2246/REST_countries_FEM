@@ -4,8 +4,8 @@
   --dark-blue: hsl(209, 23%, 22%);
   --very-dark-blue: hsl(207, 26%, 17%);
   --dark-grey: hsl(0, 0%, 52%);
-  --very-light-grey: hsl(0, 0%, 98%);
-  --white: hsl(0, 0%, 100%);
+  --very-light-grey: #fafafa;
+  --white: #ffffff;
 
   --box-shadow: 0px 0px 10px 4px #d3d3d3;
 
@@ -27,7 +27,6 @@ body {
   background-color: var(--very-light-grey);
 }
 
-
 button {
   cursor: pointer;
   padding: 1rem;
@@ -35,7 +34,6 @@ button {
   background-color: var(--white);
   border: none;
   border-radius: 0.25rem;
-  box-shadow: var(--box-shadow);
 }
 
 h4 {
@@ -49,7 +47,6 @@ h4 {
   padding: 1rem 7vw 1rem 7vw;
 
   background-color: var(--white);
-  box-shadow: var(--box-shadow);
 }
 
 .top__display-mode {
@@ -98,31 +95,44 @@ h4 {
 
 .search--text-input {
   width: 100%;
-  height: 2.5rem;
+  height: 3rem;
   max-width: 25rem;
   margin-top: 1rem;
 
   border-style: outset;
-  border-radius: .25rem;
+  border: none;
+  border-radius: 0.25rem;
+
+  color: var(--dark-grey);
 }
 
 .search__dropdown {
   margin-top: 1rem;
 }
 
+.search__dropdown--image {
+  height: auto;
+  width: 1rem;
+}
+
 .search__dropdown--content {
+  display: none;
+
   position: absolute;
   z-index: 1;
   display: flex;
   flex-direction: column;
+
+  background-color: var(--white);
+
+  width: 10.5rem;
+
+  font-weight: var(--bold);
 }
 
 .search__dropdown--category {
   display: none;
-}
-
-.search__dropdown--category:hover {
-  background-color: red;
+  margin: 0.5rem;
 }
 
 .region-filter {
@@ -155,7 +165,6 @@ h4 {
   border-radius: 0.25rem;
 
   background-color: var(--white);
-  box-shadow: var(--box-shadow);
 }
 
 .countries__country--name {
@@ -212,7 +221,7 @@ h4 {
 }
 
 @media (min-width: 376px) {
-  .btn--back{
+  .btn--back {
     margin-left: 5.5vw;
   }
   .country__info--flag-box {

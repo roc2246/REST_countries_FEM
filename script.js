@@ -34,6 +34,8 @@ const searchBar = document.getElementsByClassName("search--text-input")[0];
 
 const dropDown = document.getElementsByClassName("search__dropdown")[0];
 
+const dropDownContent = document.getElementsByClassName("search__dropdown--content")[0];
+
 const dropDownBtn = document.getElementsByClassName("search__dropdown--btn")[0];
 
 const dropDownOption = document.getElementsByClassName(
@@ -201,7 +203,8 @@ function createCountryCard(countryData, no) {
 
 function createBackBtn(countryData) {
   const backBtn = newElement("button", "btn btn--back");
-  backBtn.innerText = "Back";
+ 
+  backBtn.innerText = "&larr;&nbsp;&nbsp;Back";
   backBtn.onclick = () => {
     mainContainer.innerHTML = "";
     mainContainer.classList.remove("country");
@@ -469,7 +472,6 @@ for (let x = 0; x < dropDownOption.length - 1; x++) {
   dropDownOption[x].onclick = () => {
     for (let x = 0; x < countries.length; x++) {
       if (countries[x].classList.contains("region-filter")) {
-        console.log("TEst")
         countries[x].classList.remove("region-filter");
       }
     }
