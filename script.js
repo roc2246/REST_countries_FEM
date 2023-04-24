@@ -1,4 +1,4 @@
-let reigonFilter = null;
+let regionFilter = null;
 let textFilter = null;
 
 let prevStateNo = [];
@@ -28,7 +28,7 @@ const countries = document.getElementsByClassName("countries__country");
 const countryNames = document.getElementsByClassName(
   "countries__country--name"
 );
-const reigonNames = document.getElementsByClassName("region-name");
+const regionNames = document.getElementsByClassName("region-name");
 
 const searchBar = document.getElementsByClassName("search--text-input")[0];
 
@@ -136,7 +136,7 @@ function createCountryStats(type, ele, heading, text) {
   headingCont.innerText = `${heading}:`;
   textCont.innerHTML = ` ${text}`;
 
-  if (heading === "Reigon") {
+  if (heading === "Region") {
     textCont.classList.add("region-name");
   }
 
@@ -167,10 +167,10 @@ function createCountryCard(countryData, no) {
       "Population",
       countryData[no].population
     ),
-    countryReigon: createCountryStats(
+    countryRegion: createCountryStats(
       "countries",
       "country",
-      "Reigon",
+      "Region",
       countryData[no].region
     ),
     countryCapital: createCountryStats(
@@ -335,7 +335,7 @@ function createCountryPage(countryData, no) {
       "Population",
       data.population
     ),
-    region: createCountryStats("country", "info", "Region", data.reigon),
+    region: createCountryStats("country", "info", "Region", data.region),
     subRegion: createCountryStats(
       "country",
       "info",
@@ -405,9 +405,9 @@ function searchFilter(text) {
     const countryName = countryNames[x].textContent.toUpperCase();
 
     const textBool = countryName.includes(input);
-    const reigonBool = !countries[x].classList.contains("reigon-filter");
+    const regionBool = !countries[x].classList.contains("region-filter");
 
-    const completeBool = textBool && reigonBool;
+    const completeBool = textBool && regionBool;
 
     if (completeBool) {
       countries[x].style.display = "block";
@@ -418,9 +418,9 @@ function searchFilter(text) {
 }
 
 function dropDownFilter() {
-  for (let x = 0; x < reigonNames.length; x++) {
-    if (reigonFilter !== reigonNames[x].innerHTML) {
-      countries[x].classList.add("reigon-filter");
+  for (let x = 0; x < regionNames.length; x++) {
+    if (regionFilter !== regionNames[x].innerHTML) {
+      countries[x].classList.add("region-filter");
     }
   }
 }
@@ -467,20 +467,21 @@ dropDown.onmouseleave = () => {
 for (let x = 0; x < dropDownOption.length - 1; x++) {
   dropDownOption[x].onclick = () => {
     for (let x = 0; x < countries.length; x++) {
-      if (countries[x].classList.contains("reigon-filter")) {
-        countries[x].classList.remove("reigon-filter");
+      if (countries[x].classList.contains("region-filter")) {
+        console.log("TEst")
+        countries[x].classList.remove("region-filter");
       }
     }
-    reigonFilter = ` ${dropDownOption[x].innerHTML}`;
+    regionFilter = ` ${dropDownOption[x].innerHTML}`;
     dropDownFilter();
   };
 }
 
 clearDropDownOption.onclick = () => {
-  reigonFilter = null;
+  regionFilter = null;
   for (let x = 0; x < countries.length; x++) {
-    if (countries[x].classList.contains("reigon-filter")) {
-      countries[x].classList.remove("reigon-filter");
+    if (countries[x].classList.contains("region-filter")) {
+      countries[x].classList.remove("region-filter");
     }
   }
 };
