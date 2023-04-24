@@ -295,6 +295,7 @@ function createCountryPage(countryData, no) {
     flag: countryData[no].flag,
     nativeName: countryData[no].nativeName,
     population: countryData[no].population,
+    region: countryData[no].region,
     subregion: countryData[no].subregion,
     capital: countryData[no].capital,
     topLevelDomain: countryData[no].topLevelDomain[0],
