@@ -2,18 +2,22 @@ let reigonFilter = null;
 let textFilter = null;
 
 let prevStateNo = [];
+let toggleMode = "light"
 
 const body = document.getElementsByTagName("body")[0];
 const buttons = document.getElementsByTagName("button");
 
 const displayModeContainer =
   document.getElementsByClassName("top__display-mode")[0];
-const lightMode = document.getElementsByClassName(
-  "light-mode"
-)[0];
-const darkMode = document.getElementsByClassName(
-  "dark-mode"
-)[0];
+const lightMode = document.getElementsByClassName("light-mode")[0];
+const darkMode = document.getElementsByClassName("dark-mode")[0];
+const toggleColors = {
+  darkBlue: "var(---dark-blue)",
+  veryDarkBlue: "var(--very-dark-blue)",
+  darkGrey: "var(--dark-grey)",
+  veryLightGrey: "var(--very-light-grey)",
+  white: "var(--white)",
+};
 
 const topContainer = document.getElementsByClassName("top")[0];
 const search = document.getElementsByClassName("search")[0];
@@ -28,14 +32,9 @@ const reigonNames = document.getElementsByClassName("region-name");
 
 const searchBar = document.getElementsByClassName("search--text-input")[0];
 
+const dropDown = document.getElementsByClassName("search__dropdown")[0];
 
-const dropDown =  document.getElementsByClassName(
-  "search__dropdown"
-)[0]
-
-const dropDownBtn =  document.getElementsByClassName(
-  "search__dropdown--btn"
-)[0]
+const dropDownBtn = document.getElementsByClassName("search__dropdown--btn")[0];
 
 const dropDownOption = document.getElementsByClassName(
   "search__dropdown--category"
@@ -51,6 +50,26 @@ function changeBtnTextColor(color) {
   });
 }
 
+function changeDisplay(dark, veryDark, textColor) {
+  body.style.backgroundColor = veryDark;
+  mainContainer.style.backgroundColor = veryDark;
+
+  topContainer.style.backgroundColor = dark;
+
+  search.style.backgroundColor = veryDark;
+  searchBar.style.backgroundColor = dark;
+
+  Object.keys(buttons).forEach((btn) => {
+    buttons[btn].style.backgroundColor = dark;
+  });
+
+  Object.keys(countries).forEach((country) => {
+    countries[country].style.backgroundColor = dark;
+  });
+  body.style.color = textColor;
+  changeBtnTextColor(textColor);
+}
+
 function changedisplayModeContainer() {
   const topColor = topContainer.style.backgroundColor;
   const searchColor = search.style.backgroundColor;
@@ -58,17 +77,22 @@ function changedisplayModeContainer() {
 
   const allEmpty = topColor === "" && searchColor === "" && mainColor === "";
 
-  if (allEmpty || mainColor === "white") {
-    mainContainer.style.backgroundColor = "black";
-    body.style.color = "white";
-    changeBtnTextColor("white");
-
+  if (allEmpty || mainColor === toggleColors.darkGrey) {
+    toggleMode = "dark"
+    changeDisplay(
+      toggleColors.darkBlue,
+      toggleColors.veryDarkBlue,
+      toggleColors.white
+    );
     lightMode.style.display = "flex";
     darkMode.style.display = "none";
   } else {
-    mainContainer.style.backgroundColor = "white";
-    body.style.color = "black";
-    changeBtnTextColor("black");
+    toggleMode = "light"
+    changeDisplay(
+      toggleColors.veryLightGrey,
+      toggleColors.darkGrey,
+      "black"
+    );
 
     lightMode.style.display = "none";
     darkMode.style.display = "flex";
@@ -162,6 +186,17 @@ function createCountryCard(countryData, no) {
   });
 
   countryList.appendChild(country);
+
+  if(toggleMode === "dark"){
+    console.log("test")
+    Object.keys(countries).forEach((country) => {
+      countries[country].style.backgroundColor = toggleColors.darkBlue;
+    });
+  } else {
+    Object.keys(countries).forEach((country) => {
+      countries[country].style.backgroundColor = toggleColors.white;
+    });
+  }
 }
 
 function createBackBtn(countryData) {
@@ -348,6 +383,19 @@ function createCountryPage(countryData, no) {
 
   mainContainer.appendChild(container);
 
+  if(toggleMode === "dark"){
+    console.log("test")
+    Object.keys(buttons).forEach((btn) => {
+      buttons[btn].style.backgroundColor = toggleColors.darkBlue;
+      buttons[btn].style.color = toggleColors.white
+    });
+  } else {
+    Object.keys(buttons).forEach((btn) => {
+      buttons[btn].style.backgroundColor = toggleColors.white;
+      buttons[btn].style.color = "black";
+    });
+  }
+
   borderBtnFunctionality(countryData);
 }
 
@@ -406,15 +454,15 @@ searchBar.onkeyup = () => {
 
 dropDownBtn.onmouseover = () => {
   Object.keys(dropDownOption).forEach((option) => {
-    dropDownOption[option].style.display = "inline"
-  })
-}
+    dropDownOption[option].style.display = "inline";
+  });
+};
 
 dropDown.onmouseleave = () => {
   Object.keys(dropDownOption).forEach((option) => {
-    dropDownOption[option].style.display = "none"
-  })
-}
+    dropDownOption[option].style.display = "none";
+  });
+};
 
 for (let x = 0; x < dropDownOption.length - 1; x++) {
   dropDownOption[x].onclick = () => {
