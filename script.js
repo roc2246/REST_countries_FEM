@@ -12,11 +12,12 @@ const displayModeContainer =
 const lightMode = document.getElementsByClassName("light-mode")[0];
 const darkMode = document.getElementsByClassName("dark-mode")[0];
 const toggleColors = {
-  darkBlue: "var(---dark-blue)",
-  veryDarkBlue: "var(--very-dark-blue)",
-  darkGrey: "var(--dark-grey)",
-  veryLightGrey: "var(--very-light-grey)",
-  white: "var(--white)",
+  darkBlue: "#2b3743",
+  veryDarkBlue: "#202d36",
+  darkGrey: "hsl(0, 0%, 52%",
+  veryLightGrey: "#fafafa",
+  white: "#ffffff",
+  black: "hsl(200, 15%, 8%)"
 };
 
 const topContainer = document.getElementsByClassName("top")[0];
@@ -53,23 +54,25 @@ function changeBtnTextColor(color) {
 }
 
 function changeDisplay(input, container, textColor) {
-  body.style.backgroundColor = container;
-  mainContainer.style.backgroundColor = container;
+  body.style.backgroundColor = `${container}`;
+  mainContainer.style.backgroundColor = `${container}`;
 
-  topContainer.style.backgroundColor = input;
+  topContainer.style.backgroundColor = `${input}`;
 
-  search.style.backgroundColor = container;
-  searchBar.style.backgroundColor = input;
+  search.style.backgroundColor = `${container}`;
+  searchBar.style.backgroundColor = `${input}`;
+
+  dropDownContent.style.backgroundColor = `${input}`
 
   Object.keys(buttons).forEach((btn) => {
-    buttons[btn].style.backgroundColor = input;
+    buttons[btn].style.backgroundColor = `${input}`;
   });
 
   Object.keys(countries).forEach((country) => {
-    countries[country].style.backgroundColor = input;
+    countries[country].style.backgroundColor = `${input}`;
   });
-  body.style.color = textColor;
-  changeBtnTextColor(textColor);
+  body.style.color = `${textColor}`;
+  changeBtnTextColor(`${textColor}`);
 }
 
 function changedisplayModeContainer() {
@@ -79,7 +82,7 @@ function changedisplayModeContainer() {
 
   const allEmpty = topColor === "" && searchColor === "" && mainColor === "";
 
-  if (allEmpty || mainColor === toggleColors.veryLightGrey) {
+  if (allEmpty || mainColor === "rgb(250, 250, 250)") {
     toggleMode = "dark"
     changeDisplay(
       toggleColors.darkBlue,
@@ -88,16 +91,19 @@ function changedisplayModeContainer() {
     );
     lightMode.style.display = "flex";
     darkMode.style.display = "none";
-  } else {
+    console.log(mainColor)
+  } else if(mainColor=== "rgb(32, 45, 54)"){
     toggleMode = "light"
     changeDisplay(
       toggleColors.white,
       toggleColors.veryLightGrey,
-      "black"
+      toggleColors.black
     );
 
     lightMode.style.display = "none";
     darkMode.style.display = "flex";
+  } else {
+    console.log(mainColor)
   }
 }
 
@@ -190,7 +196,6 @@ function createCountryCard(countryData, no) {
   countryList.appendChild(country);
 
   if(toggleMode === "dark"){
-    console.log("test")
     Object.keys(countries).forEach((country) => {
       countries[country].style.backgroundColor = toggleColors.darkBlue;
     });
@@ -204,7 +209,7 @@ function createCountryCard(countryData, no) {
 function createBackBtn(countryData) {
   const backBtn = newElement("button", "btn btn--back");
  
-  backBtn.innerText = "&larr;&nbsp;&nbsp;Back";
+  backBtn.innerHTML = "&larr;&nbsp;&nbsp;Back";
   backBtn.onclick = () => {
     mainContainer.innerHTML = "";
     mainContainer.classList.remove("country");
@@ -388,7 +393,6 @@ function createCountryPage(countryData, no) {
   mainContainer.appendChild(container);
 
   if(toggleMode === "dark"){
-    console.log("test")
     Object.keys(buttons).forEach((btn) => {
       buttons[btn].style.backgroundColor = toggleColors.darkBlue;
       buttons[btn].style.color = toggleColors.white
